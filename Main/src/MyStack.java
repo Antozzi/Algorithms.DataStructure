@@ -4,7 +4,7 @@ public class MyStack<T> {
     private T[] list;
     private int size;
     private int capacity;
-    private final int DEFAULT_CAPACITY = 10;
+    private final int DEFAULT_CAPACITY = 1;
 
     public MyStack(int capacity) {
         if (capacity <= 0) {
@@ -19,10 +19,11 @@ public class MyStack<T> {
         list = (T[]) new Object[capacity];
     }
 
+
     public void push(T item) {
         if (isFull()) {
-            //реализовать расширение массива
-            throw new StackOverflowError("Стек заполнен");
+            stackCapacity(capacity *=2);
+//            throw new StackOverflowError("Стек заполнен");
         }
         list[size]= item;
         size++;
@@ -55,7 +56,7 @@ public class MyStack<T> {
         return size;
     }
 
-    private void reCapacity(int newCapacity){
+    private void stackCapacity(int newCapacity){
         T[] tempArr = (T[]) new Object[newCapacity];
         System.arraycopy(list, 0, tempArr, 0, size);
         list = tempArr;

@@ -4,7 +4,7 @@ public class MyQueue<T> {
     private T[] list;
     private int size;
     private int capacity;
-    private final int DEFAULT_CAPACITY = 10;
+    private final int DEFAULT_CAPACITY = 1;
     private int begin;
     private int end;
 
@@ -27,6 +27,7 @@ public class MyQueue<T> {
         list = (T[]) new Object[capacity];
     }
 
+
     /**
      * Метод добавления в очередь нового элемента
      *
@@ -35,8 +36,8 @@ public class MyQueue<T> {
      */
     public void insert(T item) throws IllegalStateException {
         if (isFull()) {
-            //реализовать расширение массива
-            throw new IllegalStateException("Очередь заполнена");
+            queueCapacity(capacity *=2);
+//            throw new IllegalStateException("Очередь заполнена");
         }
         size++;
         list[end] = item;
@@ -88,6 +89,11 @@ public class MyQueue<T> {
         }
         sb.append(" ]");
         return sb.toString();
+    }
+    private void queueCapacity(int newCapacity){
+        T[] tempArr = (T[]) new Object[newCapacity];
+        System.arraycopy(list, 0, tempArr, 0, size);
+        list = tempArr;
     }
 }
 
